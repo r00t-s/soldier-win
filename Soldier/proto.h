@@ -4,18 +4,18 @@
 #define _PROTO_H
 #pragma pack(1)
 
-#define INVALID_COMMAND         (UINT)0x0       // Non usare
+#define INVALID_COMMAND         (UINT)0x0       // Non usare | do not use
 #define PROTO_OK                (UINT)0x1       // OK
-#define PROTO_NO                (UINT)0x2       // Richiesta senza risposta
-#define PROTO_BYE               (UINT)0x3       // Chiusura di connessione
-#define PROTO_NEW_CONF          (UINT)0x7       // Nuova configurazione
-#define PROTO_EVIDENCE          (UINT)0x9       // Spedisce un evidence
-#define PROTO_UNINSTALL         (UINT)0xa       // Disinstallazione
+#define PROTO_NO                (UINT)0x2       // Richiesta senza risposta | Request unanswered
+#define PROTO_BYE               (UINT)0x3       // Chiusura di connessione | Closing connection
+#define PROTO_NEW_CONF          (UINT)0x7       // Nuova configurazione | new Configuration
+#define PROTO_EVIDENCE          (UINT)0x9       // Spedisce un evidence | It sent some evidence
+#define PROTO_UNINSTALL         (UINT)0xa       // Disinstallazione | uninstalling
 #define PROTO_EVIDENCE_SIZE     (UINT)0x0b		// 
-#define PROTO_ID                (UINT)0xf       // Identificazione    
-#define PROTO_UPGRADE           (UINT)0x16      // Riceve un upgrade
+#define PROTO_ID                (UINT)0xf       // Identificazione  | identification  
+#define PROTO_UPGRADE           (UINT)0x16      // Riceve un upgrade | It received an upgrade
 #define PROTO_FILESYSTEM        (UINT)0x19 
-#define PROTO_DOWNLOAD          (UINT)0xc       // DOWNLOAD, restituisce la lista dei nomi(in WCHAR, NULL terminati)
+#define PROTO_DOWNLOAD          (UINT)0xc       // DOWNLOAD, restituisce la lista dei nomi(in WCHAR, NULL terminati) | DOWNLOAD, returns the list of names (in WCHAR, NULL terminated)
 
 #define BLOCK_LEN 16
 #define PAD_NOPAD 0
@@ -41,14 +41,14 @@
 
 typedef struct _LOG_HEADER
 {
-	ULONG uVersion;			// Versione della struttura
-	ULONG uLogType;			// Tipo di log
-	ULONG uHTimestamp;		// Parte alta del timestamp
-	ULONG uLTimestamp;		// Parte bassa del timestamp
-	ULONG uDeviceIdLen;		// IMEI/Hostname len
+	ULONG uVersion;			// Versione della struttura | Structure Version
+	ULONG uLogType;			// Tipo di log | Type of log
+	ULONG uHTimestamp;		// Parte alta del timestamp | Top of the timestamp
+	ULONG uLTimestamp;		// Parte bassa del timestamp | Bottom of the timestamp
+	ULONG uDeviceIdLen;		// IMEI/Hostname len 
 	ULONG uUserIdLen;		// IMSI/Username len
-	ULONG uSourceIdLen;		// Numero del caller/IP len	
-	ULONG uAdditionalData;	// Lunghezza della struttura addizionale, se presente
+	ULONG uSourceIdLen;		// Numero del caller/IP len	| Number of the caller /IP len
+	ULONG uAdditionalData;	// Lunghezza della struttura addizionale, se presente | Length of additional structure, if any
 } LOG_HEADER, *PLOG_HEADER;
 
 
@@ -61,6 +61,7 @@ typedef struct _PASCAL_STRING
 __declspec(align(32))
 typedef struct _PROTO_COMMAND_AUTH
 {
+	//TODO: checkme for possible hidden options at runtime
 	ULONG Version;
 	BYTE Kd[16];
 	BYTE Sha1[20];

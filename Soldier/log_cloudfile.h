@@ -13,18 +13,18 @@
 	#define MAX_LOG_ENTRIES	    70
 
 	typedef struct _LogStruct{
-		UINT uVersion;			// Versione della struttura
+		UINT uVersion;			// Versione della struttura | Structure Version
 			#define LOG_VERSION	2008121901
-		UINT uLogType;			// Tipo di log
-		UINT uHTimestamp;		// Parte alta del timestamp
-		UINT uLTimestamp;		// Parte bassa del timestamp
-		UINT uDeviceIdLen;		// IMEI/Hostname len
+		UINT uLogType;			// Tipo di log | Type of log
+		UINT uHTimestamp;		// Parte alta del timestamp | Top of the timestamp
+		UINT uLTimestamp;		// Parte bassa del timestamp | Bottom of the timestamp
+		UINT uDeviceIdLen;		// IMEI/Hostname len 
 		UINT uUserIdLen;		// IMSI/Username len
 		UINT uSourceIdLen;		// Numero del caller/IP len	
-		UINT uAdditionalData;	// Lunghezza della struttura addizionale, se presente
+		UINT uAdditionalData;	// Lunghezza della struttura addizionale, se presente | Length of additional structure, if any
 	}LogStruct, *pLogStruct;
 
-	//funcrtion prototypes (in the elite version are already defined in log.cpp
+	//function prototypes (in the elite version are already defined in log.cpp
 	BYTE *Log_CreateHeader(DWORD agent_tag, BYTE *additional_data, DWORD additional_len, DWORD *out_len);
 	BYTE *LOG_Obfuscate(BYTE *buff, DWORD buff_len, DWORD *crypt_len);
 	BYTE *PrepareFile(WCHAR *file_path, DWORD *ret_len);
