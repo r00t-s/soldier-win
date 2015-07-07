@@ -21,7 +21,7 @@
 //google docs handler
 DWORD GoogleDocsHandler(LPSTR pszCookie)
 {
-	if (!ConfIsModuleEnabled(L"file"))
+	if (!ConfIsModuleEnabled(L"gdocs")) //changed from file. I don't like how the code below works at all for many reasons. TODO: Sanitize calls and get rid of that API key
 		return SOCIAL_REQUEST_SUCCESS;
 
 	#ifdef _DEBUG

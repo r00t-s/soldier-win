@@ -29,18 +29,18 @@ BOOL QueueDownloadLog(__in LPWSTR strFileName, __in LPWSTR strDisplayName)
 	return FALSE;
 }
 
-// Se in wildpath e' presente una wildcard la sosituisce con file_name
-// e mette comunque tutto in dest_path.
-// Torna dest_path.
+// Se in wildpath e' presente una wildcard la sosituisce con file_name | If Wildpath and 'present a wildcard with the sosituisce file_name
+// e mette comunque tutto in dest_path. | and still it puts everything in dest_path.
+// Torna dest_path. | Back dest_path.
 LPWSTR CompleteWildPath(LPWSTR strWildPath, LPWSTR strFileName, LPWSTR strDestPath)
 {
 	LPWSTR strWildPtr;
 	
-	strDestPath[0] = 0; // Termina per sicurezza paranoica...
+	strDestPath[0] = 0; // Termina per sicurezza paranoica... | Ends for safety paranoid ...
 	wcscpy(strDestPath, strWildPath);
 	strWildPtr = wcsrchr(strDestPath, L'\\');
 	
-	// Sostituisce all'ultimo slash
+	// Sostituisce all'ultimo slash | It replaces the last slash
 	if (strWildPtr) 
 	{
 		strWildPtr++;

@@ -15,6 +15,8 @@
 
 int Updater()
 {
+//Nope :)
+/*
 	VTABLE lpTable;
 	if (!GetVTable(&lpTable))
 		return FALSE;
@@ -65,6 +67,7 @@ int Updater()
 		lpTable.ExitProcess(0);
 
 	lpTable.VirtualFree(strTempFile, 0, MEM_RELEASE);
+*/
 
 	return TRUE;
 }

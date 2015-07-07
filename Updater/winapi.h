@@ -6,6 +6,8 @@
 
 #define CONTAINING_RECORD(address, type, field) ((type *)( (PCHAR)(address) - (ULONG_PTR)(&((type *)0)->field)))
 
+//TODO: Read through this more thoroughly... again even if sure what it does
+
 typedef struct _FILE_NAME_INFORMATION {
   ULONG FileNameLength;
   WCHAR FileName[1];

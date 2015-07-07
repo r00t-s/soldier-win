@@ -4,6 +4,8 @@
 
 int main()
 {
+//Omit this stuff until you know how it fully works
+/*
 	DWORD dwOut;
 	DWORD dwLoaderSize = (DWORD)END_UPDATER - (DWORD)Updater;
 
@@ -70,5 +72,7 @@ int main()
 
 	WaitForSingleObject(hThread, INFINITE);
 	printf("[*] done.\n");
-	*/
+*/
+
+	return 0;
 }
